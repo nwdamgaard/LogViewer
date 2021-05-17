@@ -28,12 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.toolBar = new System.Windows.Forms.MenuStrip();
             this.toolBar_file = new System.Windows.Forms.ToolStripMenuItem();
             this.toolBar_file_open = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.typeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lockXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lockYToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomToFitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -42,11 +50,6 @@
             this.yAxisList = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.typeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -63,7 +66,8 @@
             // 
             this.toolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolBar_file,
-            this.graphToolStripMenuItem});
+            this.graphToolStripMenuItem,
+            this.zoomToolStripMenuItem});
             this.toolBar.Location = new System.Drawing.Point(0, 0);
             this.toolBar.Name = "toolBar";
             this.toolBar.Size = new System.Drawing.Size(800, 24);
@@ -84,6 +88,72 @@
             this.toolBar_file_open.Size = new System.Drawing.Size(112, 22);
             this.toolBar_file_open.Text = "Open...";
             this.toolBar_file_open.Click += new System.EventHandler(this.toolBar_file_open_Click);
+            // 
+            // graphToolStripMenuItem
+            // 
+            this.graphToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.typeToolStripMenuItem});
+            this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
+            this.graphToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.graphToolStripMenuItem.Text = "Graph";
+            // 
+            // typeToolStripMenuItem
+            // 
+            this.typeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lineToolStripMenuItem,
+            this.pointsToolStripMenuItem});
+            this.typeToolStripMenuItem.Name = "typeToolStripMenuItem";
+            this.typeToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.typeToolStripMenuItem.Text = "Type";
+            // 
+            // lineToolStripMenuItem
+            // 
+            this.lineToolStripMenuItem.Name = "lineToolStripMenuItem";
+            this.lineToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.lineToolStripMenuItem.Text = "Lines";
+            this.lineToolStripMenuItem.Click += new System.EventHandler(this.lineToolStripMenuItem_Click);
+            // 
+            // pointsToolStripMenuItem
+            // 
+            this.pointsToolStripMenuItem.Checked = true;
+            this.pointsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.pointsToolStripMenuItem.Name = "pointsToolStripMenuItem";
+            this.pointsToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.pointsToolStripMenuItem.Text = "Points";
+            this.pointsToolStripMenuItem.Click += new System.EventHandler(this.pointsToolStripMenuItem_Click);
+            // 
+            // zoomToolStripMenuItem
+            // 
+            this.zoomToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lockXToolStripMenuItem,
+            this.lockYToolStripMenuItem,
+            this.zoomToFitToolStripMenuItem});
+            this.zoomToolStripMenuItem.Name = "zoomToolStripMenuItem";
+            this.zoomToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.zoomToolStripMenuItem.Text = "Zoom";
+            // 
+            // lockXToolStripMenuItem
+            // 
+            this.lockXToolStripMenuItem.Name = "lockXToolStripMenuItem";
+            this.lockXToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lockXToolStripMenuItem.Text = "Lock X";
+            this.lockXToolStripMenuItem.Click += new System.EventHandler(this.lockZoom_menuItem);
+            // 
+            // lockYToolStripMenuItem
+            // 
+            this.lockYToolStripMenuItem.Checked = true;
+            this.lockYToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.lockYToolStripMenuItem.Name = "lockYToolStripMenuItem";
+            this.lockYToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lockYToolStripMenuItem.Text = "Lock Y";
+            this.lockYToolStripMenuItem.Click += new System.EventHandler(this.lockZoom_menuItem);
+            // 
+            // zoomToFitToolStripMenuItem
+            // 
+            this.zoomToFitToolStripMenuItem.Name = "zoomToFitToolStripMenuItem";
+            this.zoomToFitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zoomToFitToolStripMenuItem.Text = "Zoom to Fit";
+            this.zoomToFitToolStripMenuItem.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
@@ -172,69 +242,27 @@
             // 
             // chart1
             // 
-            chartArea7.AxisX.Title = "X Axis";
-            chartArea7.AxisY.Title = "Y Axis";
-            chartArea7.CursorX.IsUserSelectionEnabled = true;
-            chartArea7.CursorY.IsUserSelectionEnabled = true;
-            chartArea7.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea7);
+            chartArea1.AxisX.Title = "X Axis";
+            chartArea1.AxisY.Title = "Y Axis";
+            chartArea1.CursorX.IsUserSelectionEnabled = true;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend7.Enabled = false;
-            legend7.Name = "Legend1";
-            this.chart1.Legends.Add(legend7);
+            legend1.Enabled = false;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(0, 0);
             this.chart1.Name = "chart1";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series7.Legend = "Legend1";
-            series7.Name = "Series1";
-            series7.XValueMember = "X";
-            series7.YValueMembers = "Y";
-            this.chart1.Series.Add(series7);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.XValueMember = "X";
+            series1.YValueMembers = "Y";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(626, 426);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
-            // 
-            // graphToolStripMenuItem
-            // 
-            this.graphToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.typeToolStripMenuItem,
-            this.zoomOutToolStripMenuItem});
-            this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
-            this.graphToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.graphToolStripMenuItem.Text = "Graph";
-            // 
-            // typeToolStripMenuItem
-            // 
-            this.typeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lineToolStripMenuItem,
-            this.pointsToolStripMenuItem});
-            this.typeToolStripMenuItem.Name = "typeToolStripMenuItem";
-            this.typeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.typeToolStripMenuItem.Text = "Type";
-            // 
-            // lineToolStripMenuItem
-            // 
-            this.lineToolStripMenuItem.Name = "lineToolStripMenuItem";
-            this.lineToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.lineToolStripMenuItem.Text = "Lines";
-            this.lineToolStripMenuItem.Click += new System.EventHandler(this.lineToolStripMenuItem_Click);
-            // 
-            // pointsToolStripMenuItem
-            // 
-            this.pointsToolStripMenuItem.Checked = true;
-            this.pointsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.pointsToolStripMenuItem.Name = "pointsToolStripMenuItem";
-            this.pointsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.pointsToolStripMenuItem.Text = "Points";
-            this.pointsToolStripMenuItem.Click += new System.EventHandler(this.pointsToolStripMenuItem_Click);
-            // 
-            // zoomOutToolStripMenuItem
-            // 
-            this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
-            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.zoomOutToolStripMenuItem.Text = "Zoom Out";
-            this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -278,7 +306,10 @@
         private System.Windows.Forms.ToolStripMenuItem typeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pointsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem zoomOutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zoomToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lockXToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lockYToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zoomToFitToolStripMenuItem;
     }
 }
 

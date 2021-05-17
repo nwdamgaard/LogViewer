@@ -104,8 +104,7 @@ namespace LogViewer
             select_graph_type((ToolStripMenuItem)sender);
             chart1.Series.First().ChartType = SeriesChartType.Line;
         }
-
-        private void pointsToolStripMenuItem_Click(object sender, EventArgs e)
+                private void pointsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             select_graph_type((ToolStripMenuItem)sender);
             chart1.Series.First().ChartType = SeriesChartType.Point;
@@ -113,7 +112,23 @@ namespace LogViewer
 
         private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            chart1.ChartAreas.First().AxisX.ScaleView.ZoomReset(0);
+            chart1.ChartAreas.First().AxisY.ScaleView.ZoomReset(0);
+        }
+
+        private void lockZoom_menuItem(object sender, EventArgs e)
+        {
+            ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;
+            menuItem.Checked = !menuItem.Checked;
+
+            if(menuItem.Name.Equals("lockXToolStripMenuItem"))
+            {
+                chart1.ChartAreas.First().CursorX.IsUserSelectionEnabled = !menuItem.Checked;
+            }
+            else if(menuItem.Name.Equals("lockYToolStripMenuItem"))
+            {
+                chart1.ChartAreas.First().CursorY.IsUserSelectionEnabled = !menuItem.Checked;
+            }
         }
     }
 }
