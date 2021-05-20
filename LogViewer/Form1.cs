@@ -206,23 +206,24 @@ namespace LogViewer
                 //show data point info
                 dataPointInfoPopup.Show();
 
-                //move data point info to mouse position
-                Point location = MousePosition;
-                location.Offset(new Point(5, 0));
-
-                if(PointToClient(location).X + dataPointInfoPopup.Width > Width) //if the popup hangs off the screen, put it to the left of the cursor
-                {
-                    location.Offset(new Point(-10 - dataPointInfoPopup.Width, 0));
-                }
-
-                dataPointInfoPopup.Location = PointToClient(location);
-
                 //fill labels
                 DataPoint point = result.Series.Points.ElementAt(result.PointIndex);
                 string xTitle = result.ChartArea.AxisX.Title;
                 string yTitle = result.Series.YAxisType == AxisType.Primary ? result.ChartArea.AxisY.Title : result.ChartArea.AxisY2.Title;
                 xcoordLabel.Text = xTitle + ": " + point.XValue.ToString();
                 ycoordLabel.Text = yTitle + ": " + point.YValues.First().ToString();
+
+                //move data point info to mouse position
+                Point location = MousePosition;
+                location.Offset(new Point(5, 0));
+
+                //if the popup hangs off the screen, put it to the left of the cursor
+                if (PointToClient(location).X + dataPointInfoPopup.Width + 10 >= Width)  // add 10 to account for the margin in dataPointInfoPopup
+                {
+                    location.Offset(new Point(-10 - dataPointInfoPopup.Width, 0));
+                }
+
+                dataPointInfoPopup.Location = PointToClient(location);
 
             } else
             {
