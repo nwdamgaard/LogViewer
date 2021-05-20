@@ -210,7 +210,7 @@ namespace LogViewer
                 Point location = MousePosition;
                 location.Offset(new Point(5, 0));
 
-                if(location.X + dataPointInfoPopup.Width > Width) //if the popup hangs off the screen, put it to the left of the cursor
+                if(PointToClient(location).X + dataPointInfoPopup.Width > Width) //if the popup hangs off the screen, put it to the left of the cursor
                 {
                     location.Offset(new Point(-10 - dataPointInfoPopup.Width, 0));
                 }
