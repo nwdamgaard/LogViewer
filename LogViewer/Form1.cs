@@ -197,5 +197,37 @@ namespace LogViewer
 
             update_graph();
         }
+
+        private void chart1_MouseMove(object sender, MouseEventArgs e)
+        {
+            HitTestResult result = chart1.HitTest(e.X, e.Y);
+            if(result.ChartElementType == ChartElementType.DataPoint)
+            {
+                //show data point info
+                dataPointInfoPopup.Show();
+
+                //move data point info to mouse position
+                Point location = MousePosition;
+                location.Offset(new Point(5, 0));
+
+                if(location.X + dataPointInfoPopup.Width > Width) //if the popup hangs off the screen, put it to the left of the cursor
+                {
+                    location.Offset(new Point(-10 - dataPointInfoPopup.Width, 0));
+                }
+
+                dataPointInfoPopup.Location = PointToClient(location);
+
+                //fill labels
+                DataPoint point = result.Series.Points.ElementAt(result.PointIndex);
+                string xTitle = result.ChartArea.AxisX.Title;
+                string yTitle = result.Series.YAxisType == AxisType.Primary ? result.ChartArea.AxisY.Title : result.ChartArea.AxisY2.Title;
+                xcoordLabel.Text = xTitle + ": " + point.XValue.ToString();
+                ycoordLabel.Text = yTitle + ": " + point.YValues.First().ToString();
+
+            } else
+            {
+                dataPointInfoPopup.Hide();
+            }
+        }
     }
 }
