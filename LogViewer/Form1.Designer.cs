@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.toolBar = new System.Windows.Forms.MenuStrip();
             this.toolBar_file = new System.Windows.Forms.ToolStripMenuItem();
             this.toolBar_file_open = new System.Windows.Forms.ToolStripMenuItem();
@@ -325,31 +325,31 @@
             // 
             // chart1
             // 
-            chartArea2.AxisX.Title = "X Axis";
-            chartArea2.AxisY.Title = "Y Axis";
-            chartArea2.AxisY2.MajorGrid.Enabled = false;
-            chartArea2.CursorX.IsUserSelectionEnabled = true;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
+            chartArea9.AxisX.Title = "X Axis";
+            chartArea9.AxisY.Title = "Y Axis";
+            chartArea9.AxisY2.MajorGrid.Enabled = false;
+            chartArea9.CursorX.IsUserSelectionEnabled = true;
+            chartArea9.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea9);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Enabled = false;
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            legend9.Enabled = false;
+            legend9.Name = "Legend1";
+            this.chart1.Legends.Add(legend9);
             this.chart1.Location = new System.Drawing.Point(0, 0);
             this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series3.Legend = "Legend1";
-            series3.Name = "primary";
-            series3.XValueMember = "X";
-            series3.YValueMembers = "Y";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series4.Legend = "Legend1";
-            series4.Name = "secondary";
-            series4.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            this.chart1.Series.Add(series3);
-            this.chart1.Series.Add(series4);
+            series17.ChartArea = "ChartArea1";
+            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series17.Legend = "Legend1";
+            series17.Name = "primary";
+            series17.XValueMember = "X";
+            series17.YValueMembers = "Y";
+            series18.ChartArea = "ChartArea1";
+            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series18.Legend = "Legend1";
+            series18.Name = "secondary";
+            series18.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            this.chart1.Series.Add(series17);
+            this.chart1.Series.Add(series18);
             this.chart1.Size = new System.Drawing.Size(808, 497);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -368,6 +368,7 @@
             this.dataPointInfoPopup.Size = new System.Drawing.Size(62, 26);
             this.dataPointInfoPopup.TabIndex = 4;
             this.dataPointInfoPopup.Visible = false;
+            this.dataPointInfoPopup.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
             // xcoordLabel
             // 
@@ -377,6 +378,7 @@
             this.xcoordLabel.Size = new System.Drawing.Size(56, 13);
             this.xcoordLabel.TabIndex = 0;
             this.xcoordLabel.Text = "hello there";
+            this.xcoordLabel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
             // ycoordLabel
             // 
@@ -386,6 +388,7 @@
             this.ycoordLabel.Size = new System.Drawing.Size(35, 13);
             this.ycoordLabel.TabIndex = 1;
             this.ycoordLabel.Text = "label3";
+            this.ycoordLabel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
             // Form1
             // 
