@@ -19,10 +19,6 @@ namespace LogViewer
             InitializeComponent();
 
             LoadedLog.LoadedFile += file_loaded;
-
-            //disable secondary Y axis: simplicity first, flexibility later
-            secondaryYAxisToolStripMenuItem.Checked = false;
-            secondaryYAxisToolStripMenuItem_Click(secondaryYAxisToolStripMenuItem, null);
         }
 
         private void update_list(ListBox list)
@@ -49,8 +45,6 @@ namespace LogViewer
         private void file_loaded()
         {
             update_list(xAxisList);
-            update_list(yAxisList);
-            update_list(yAxisListOther);
             clear_points();
         }
 
@@ -70,62 +64,100 @@ namespace LogViewer
             }
         }
 
-        private void update_graph()
+        private SeriesChartType get_chart_type()
+        {
+            if(pointsToolStripMenuItem.Checked)
+            {
+                return SeriesChartType.Point;
+            }
+
+            if(lineToolStripMenuItem.Checked)
+            {
+                return SeriesChartType.Line;
+            }
+
+            Console.WriteLine("get_chart_type(): something really screwed up");
+            return SeriesChartType.Point;
+        }
+
+        public void update_graph(object sender, EventArgs e)
+        {
+            update_graph();
+        }
+
+        private struct SeriesInfo
+        {
+            public string name;
+            public double scaleFactor;
+            public bool onLeft;
+        }
+
+        public void update_graph()
         {
             if(xAxisList.SelectedItem == null)
             {
                 return;
             }
-            if (yAxisList.SelectedItem == null)
+            if (yAxisTabs.Controls.Count == 0) //return if there are no y-axes
             {
                 return;
+            } else
+            {
+                //return if no yAxisPages have anything selected
+                bool nothingSelected = true;
+                foreach(TabPage page in yAxisTabs.Controls)
+                {
+                    yAxisPage axisPage = (yAxisPage)page.Controls[0];
+                    ListBox list = (ListBox)axisPage.Controls.Find("variablesList", false).First();
+                    if(list.SelectedItem != null)
+                    {
+                        nothingSelected = false;
+                    }
+                }
+                if (nothingSelected) return;
             }
 
             Console.WriteLine("updating graph...");
 
-            //generate series for primary Y-axis
-            double miny = double.PositiveInfinity;
-            double maxy = double.NegativeInfinity;
-            chart1.Series.FindByName("primary").Points.Clear();
-            for(int i = 0; i < LoadedLog.log[LoadedLog.columns[0]].Count; i++)
-            {
-                double x = LoadedLog.log[xAxisList.SelectedItem.ToString()][i];
-                double y = LoadedLog.log[yAxisList.SelectedItem.ToString()][i];
-                chart1.Series.FindByName("primary").Points.AddXY(x, y);
-                miny = Math.Min(y, miny);
-                maxy = Math.Max(y, maxy);
-            }
-            chart1.ChartAreas.First().AxisY.Maximum = maxy;
-            chart1.ChartAreas.First().AxisY.Minimum = miny;
+            chart1.Series.Clear(); //destroy all the existing series
 
-            if (yAxisListOther.SelectedItem != null && secondaryYAxisToolStripMenuItem.Checked)
+            //generate list of series needed
+            List<SeriesInfo> seriesNeeded = new List<SeriesInfo>();
+            foreach (TabPage page in yAxisTabs.Controls)
             {
-                miny = double.PositiveInfinity;
-                maxy = double.NegativeInfinity;
-                //generate series for secondary Y-axis
-                chart1.Series.FindByName("secondary").Points.Clear();
-                for (int i = 0; i < LoadedLog.log[LoadedLog.columns[0]].Count; i++)
+                yAxisPage axisPage = (yAxisPage)page.Controls[0];
+                ListBox list = (ListBox)axisPage.Controls.Find("variablesList", false).First();
+                if (list.SelectedItem != null)
                 {
-                    double x = LoadedLog.log[xAxisList.SelectedItem.ToString()][i];
-                    double y = LoadedLog.log[yAxisListOther.SelectedItem.ToString()][i];
-                    miny = Math.Min(miny, y);
-                    maxy = Math.Max(maxy, y);
-                    chart1.Series.FindByName("secondary").Points.AddXY(x, y);
+                    SeriesInfo info = new SeriesInfo();
+                    info.name = LoadedLog.columns[list.SelectedIndex];
+                    info.scaleFactor = axisPage.getScaleFactor();
+                    info.onLeft = axisPage.getScale();
+                    seriesNeeded.Add(info);
                 }
-                chart1.ChartAreas.First().AxisY2.Title = yAxisListOther.SelectedItem.ToString();
-                chart1.ChartAreas.First().AxisY2.Enabled = AxisEnabled.True;
-                chart1.ChartAreas.First().AxisY2.Maximum = maxy;
-                chart1.ChartAreas.First().AxisY2.Minimum = miny;
-            } else
-            {
-                chart1.Series.FindByName("secondary").Points.Clear();
-                chart1.ChartAreas.First().AxisY2.Title = "";
-                chart1.ChartAreas.First().AxisY2.Enabled = AxisEnabled.False;
             }
 
-            chart1.ChartAreas.First().AxisX.Title = xAxisList.SelectedItem.ToString();
-            chart1.ChartAreas.First().AxisY.Title = yAxisList.SelectedItem.ToString();
-            
+            //generate each of those series
+            foreach(SeriesInfo series in seriesNeeded)
+            {
+                chart1.Series.Add(series.name);
+                chart1.Series.FindByName(series.name).ChartType = get_chart_type();
+
+                if(series.onLeft)
+                {
+                    chart1.Series.FindByName(series.name).YAxisType = AxisType.Primary;
+                } else
+                {
+                    chart1.Series.FindByName(series.name).YAxisType = AxisType.Secondary;
+                }
+
+                for(int i = 0; i < LoadedLog.log[series.name].Count; i++)
+                {
+                    double y = LoadedLog.log[series.name][i] * series.scaleFactor;
+                    double x = LoadedLog.log[xAxisList.SelectedItem.ToString()][i];
+                    chart1.Series.FindByName(series.name).Points.AddXY(x, y);
+                }
+            }
 
             chart1.DataBind();
             chart1.Update();
@@ -133,7 +165,7 @@ namespace LogViewer
 
         private void AxisList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            update_graph();
+            update_graph(sender, e);
         }
 
         private void select_graph_type(ToolStripMenuItem item_to_select)
@@ -149,15 +181,19 @@ namespace LogViewer
         private void lineToolStripMenuItem_Click(object sender, EventArgs e)
         {
             select_graph_type((ToolStripMenuItem)sender);
-            chart1.Series.FindByName("primary").ChartType = SeriesChartType.Line;
-            chart1.Series.FindByName("secondary").ChartType = SeriesChartType.Line;
+            foreach(Series series in chart1.Series)
+            {
+                series.ChartType = SeriesChartType.Line;
+            }
         }
 
         private void pointsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             select_graph_type((ToolStripMenuItem)sender);
-            chart1.Series.FindByName("primary").ChartType = SeriesChartType.Point;
-            chart1.Series.FindByName("secondary").ChartType = SeriesChartType.Point;
+            foreach (Series series in chart1.Series)
+            {
+                series.ChartType = SeriesChartType.Point;
+            }
         }
 
         private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -181,23 +217,6 @@ namespace LogViewer
             }
         }
 
-        private void secondaryYAxisToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ToolStripMenuItem item = (ToolStripMenuItem)sender;
-            
-            if(item.Checked)
-            {
-                tableLayoutPanel1.RowStyles[2].SizeType = SizeType.Percent;
-                tableLayoutPanel1.RowStyles[2].Height = 33;
-            }
-            else
-            {
-                tableLayoutPanel1.RowStyles[2].Height = 0;
-            }
-
-            update_graph();
-        }
-
         private void chart1_MouseMove(object sender, MouseEventArgs e)
         {
             HitTestResult result = chart1.HitTest(e.X, e.Y);
@@ -208,10 +227,10 @@ namespace LogViewer
 
                 //fill labels
                 DataPoint point = result.Series.Points.ElementAt(result.PointIndex);
-                string xTitle = result.ChartArea.AxisX.Title;
-                string yTitle = result.Series.YAxisType == AxisType.Primary ? result.ChartArea.AxisY.Title : result.ChartArea.AxisY2.Title;
-                xcoordLabel.Text = xTitle + ": " + point.XValue.ToString();
-                ycoordLabel.Text = yTitle + ": " + point.YValues.First().ToString();
+                string xText = (string)xAxisList.SelectedItem;
+                string yText = result.Series.Name;
+                xcoordLabel.Text = xText + ": " + point.XValue.ToString();
+                ycoordLabel.Text = yText + ": " + point.YValues.First().ToString();
 
                 //move data point info to mouse position
                 Point location = MousePosition;
@@ -228,6 +247,19 @@ namespace LogViewer
             } else
             {
                 dataPointInfoPopup.Hide();
+            }
+        }
+
+        private void addYAxisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TabPage newPage = new TabPage("New Y Axis");
+            yAxisPage axisPage = new yAxisPage(this);
+            newPage.Controls.Add(axisPage);
+            yAxisTabs.TabPages.Add(newPage);
+
+            if(yAxisTabs.TabCount == 1)
+            {
+                yAxisTabs.Visible = true;
             }
         }
     }
