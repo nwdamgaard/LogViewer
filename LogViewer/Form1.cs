@@ -85,13 +85,6 @@ namespace LogViewer
             update_graph();
         }
 
-        private struct SeriesInfo
-        {
-            public string name;
-            public double scaleFactor;
-            public bool onLeft;
-        }
-
         public void update_graph()
         {
             if(xAxisList.SelectedItem == null)
@@ -121,41 +114,34 @@ namespace LogViewer
 
             chart1.Series.Clear(); //destroy all the existing series
 
-            //generate list of series needed
-            List<SeriesInfo> seriesNeeded = new List<SeriesInfo>();
             foreach (TabPage page in yAxisTabs.Controls)
             {
                 yAxisPage axisPage = (yAxisPage)page.Controls[0];
                 ListBox list = (ListBox)axisPage.Controls.Find("variablesList", false).First();
                 if (list.SelectedItem != null)
                 {
-                    SeriesInfo info = new SeriesInfo();
-                    info.name = LoadedLog.columns[list.SelectedIndex];
-                    info.scaleFactor = axisPage.getScaleFactor();
-                    info.onLeft = axisPage.getScale();
-                    seriesNeeded.Add(info);
-                }
-            }
+                    string name = LoadedLog.columns[list.SelectedIndex];
+                    double scaleFactor = axisPage.getScaleFactor();
+                    bool onLeft = axisPage.getScale();
 
-            //generate each of those series
-            foreach(SeriesInfo series in seriesNeeded)
-            {
-                chart1.Series.Add(series.name);
-                chart1.Series.FindByName(series.name).ChartType = get_chart_type();
+                    chart1.Series.Add(name);
+                    chart1.Series.FindByName(name).ChartType = get_chart_type();
 
-                if(series.onLeft)
-                {
-                    chart1.Series.FindByName(series.name).YAxisType = AxisType.Primary;
-                } else
-                {
-                    chart1.Series.FindByName(series.name).YAxisType = AxisType.Secondary;
-                }
+                    if (onLeft)
+                    {
+                        chart1.Series.FindByName(name).YAxisType = AxisType.Primary;
+                    }
+                    else
+                    {
+                        chart1.Series.FindByName(name).YAxisType = AxisType.Secondary;
+                    }
 
-                for(int i = 0; i < LoadedLog.log[series.name].Count; i++)
-                {
-                    double y = LoadedLog.log[series.name][i] * series.scaleFactor;
-                    double x = LoadedLog.log[xAxisList.SelectedItem.ToString()][i];
-                    chart1.Series.FindByName(series.name).Points.AddXY(x, y);
+                    for (int i = 0; i < LoadedLog.log[name].Count; i++)
+                    {
+                        double y = LoadedLog.log[name][i] * scaleFactor;
+                        double x = LoadedLog.log[xAxisList.SelectedItem.ToString()][i];
+                        chart1.Series.FindByName(name).Points.AddXY(x, y);
+                    }
                 }
             }
 
