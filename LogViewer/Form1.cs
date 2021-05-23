@@ -114,28 +114,25 @@ namespace LogViewer
 
             chart1.Series.Clear(); //destroy all the existing series
 
-            foreach (TabPage page in yAxisTabs.Controls)
+            foreach (TabPage page in yAxisTabs.Controls) // loop through each Y axis entry
             {
+                //do some polymorphism to get my yAxisPage class which has the info I need
                 yAxisPage axisPage = (yAxisPage)page.Controls[0];
                 ListBox list = (ListBox)axisPage.Controls.Find("variablesList", false).First();
+
                 if (list.SelectedItem != null)
                 {
+                    //define some stuff needed multiple times
                     string name = LoadedLog.columns[list.SelectedIndex];
                     double scaleFactor = axisPage.getScaleFactor();
                     bool onLeft = axisPage.getScale();
 
+                    //set series properties
                     chart1.Series.Add(name);
                     chart1.Series.FindByName(name).ChartType = get_chart_type();
+                    chart1.Series.FindByName(name).YAxisType = onLeft ? AxisType.Primary : AxisType.Secondary;
 
-                    if (onLeft)
-                    {
-                        chart1.Series.FindByName(name).YAxisType = AxisType.Primary;
-                    }
-                    else
-                    {
-                        chart1.Series.FindByName(name).YAxisType = AxisType.Secondary;
-                    }
-
+                    //add points
                     for (int i = 0; i < LoadedLog.log[name].Count; i++)
                     {
                         double y = LoadedLog.log[name][i] * scaleFactor;
