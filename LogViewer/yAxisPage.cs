@@ -21,6 +21,7 @@ namespace LogViewer
         {
             this.mainWindow = mainWindow;
             series = new Series();
+            series.ChartType = mainWindow.chartType;
 
             InitializeComponent();
 
@@ -77,12 +78,14 @@ namespace LogViewer
 
         public void generatePoints()
         {
+            ListBox xAxisList = (ListBox)mainWindow.Controls.Find("xAxisList", true).First();
+
             if (variablesList.SelectedIndex == -1) return; //don't generate any points if nothing's selected
+            if (xAxisList.SelectedItem == null) return;
 
             string name = LoadedLog.columns[variablesList.SelectedIndex];
             double scaleFactor = getScaleFactor();
             bool onLeft = getScale();
-            ListBox xAxisList = (ListBox)mainWindow.Controls.Find("xAxisList", true).First();
 
             series.Points.Clear();
             for (int i = 0; i < LoadedLog.log[name].Count; i++)

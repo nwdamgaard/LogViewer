@@ -14,6 +14,8 @@ namespace LogViewer
 {
     public partial class Form1 : Form
     {
+        public SeriesChartType chartType = SeriesChartType.Point;
+
         public Form1()
         {
             InitializeComponent();
@@ -144,6 +146,7 @@ namespace LogViewer
             select_graph_type((ToolStripMenuItem)sender);
             foreach(Series series in chart1.Series)
             {
+                chartType = SeriesChartType.Line;
                 series.ChartType = SeriesChartType.Line;
             }
         }
@@ -153,6 +156,7 @@ namespace LogViewer
             select_graph_type((ToolStripMenuItem)sender);
             foreach (Series series in chart1.Series)
             {
+                chartType = SeriesChartType.Point;
                 series.ChartType = SeriesChartType.Point;
             }
         }

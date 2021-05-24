@@ -39,34 +39,34 @@
             this.typeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addYAxisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lockXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lockYToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomToFitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.xAxisList = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.yAxisTabs = new System.Windows.Forms.TabControl();
+            this.label2 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dataPointInfoPopup = new System.Windows.Forms.FlowLayoutPanel();
             this.xcoordLabel = new System.Windows.Forms.Label();
             this.ycoordLabel = new System.Windows.Forms.Label();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
-            this.xAxisList = new System.Windows.Forms.ListBox();
-            this.yAxisTabs = new System.Windows.Forms.TabControl();
-            this.addYAxisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label2 = new System.Windows.Forms.Label();
             this.toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            this.dataPointInfoPopup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.dataPointInfoPopup.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolBar
@@ -111,13 +111,13 @@
             this.lineToolStripMenuItem,
             this.pointsToolStripMenuItem});
             this.typeToolStripMenuItem.Name = "typeToolStripMenuItem";
-            this.typeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.typeToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.typeToolStripMenuItem.Text = "Type";
             // 
             // lineToolStripMenuItem
             // 
             this.lineToolStripMenuItem.Name = "lineToolStripMenuItem";
-            this.lineToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lineToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.lineToolStripMenuItem.Text = "Lines";
             this.lineToolStripMenuItem.Click += new System.EventHandler(this.lineToolStripMenuItem_Click);
             // 
@@ -126,9 +126,16 @@
             this.pointsToolStripMenuItem.Checked = true;
             this.pointsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.pointsToolStripMenuItem.Name = "pointsToolStripMenuItem";
-            this.pointsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pointsToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.pointsToolStripMenuItem.Text = "Points";
             this.pointsToolStripMenuItem.Click += new System.EventHandler(this.pointsToolStripMenuItem_Click);
+            // 
+            // addYAxisToolStripMenuItem
+            // 
+            this.addYAxisToolStripMenuItem.Name = "addYAxisToolStripMenuItem";
+            this.addYAxisToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.addYAxisToolStripMenuItem.Text = "Add Y Axis";
+            this.addYAxisToolStripMenuItem.Click += new System.EventHandler(this.addYAxisToolStripMenuItem_Click);
             // 
             // zoomToolStripMenuItem
             // 
@@ -185,6 +192,66 @@
             this.splitContainer1.Size = new System.Drawing.Size(1031, 497);
             this.splitContainer1.SplitterDistance = 219;
             this.splitContainer1.TabIndex = 2;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.xAxisList);
+            this.splitContainer2.Panel1.Controls.Add(this.label1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.yAxisTabs);
+            this.splitContainer2.Panel2.Controls.Add(this.label2);
+            this.splitContainer2.Size = new System.Drawing.Size(219, 497);
+            this.splitContainer2.SplitterDistance = 149;
+            this.splitContainer2.TabIndex = 0;
+            // 
+            // xAxisList
+            // 
+            this.xAxisList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.xAxisList.FormattingEnabled = true;
+            this.xAxisList.Location = new System.Drawing.Point(0, 17);
+            this.xAxisList.Name = "xAxisList";
+            this.xAxisList.Size = new System.Drawing.Size(219, 132);
+            this.xAxisList.TabIndex = 11;
+            this.xAxisList.SelectedIndexChanged += new System.EventHandler(this.AxisList_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.SystemColors.Window;
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(219, 17);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "X Axis";
+            // 
+            // yAxisTabs
+            // 
+            this.yAxisTabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.yAxisTabs.Location = new System.Drawing.Point(0, 0);
+            this.yAxisTabs.Name = "yAxisTabs";
+            this.yAxisTabs.SelectedIndex = 0;
+            this.yAxisTabs.Size = new System.Drawing.Size(219, 344);
+            this.yAxisTabs.TabIndex = 1;
+            this.yAxisTabs.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 166);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(195, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "To get started, go to Graph->Add Y Axis";
             // 
             // flowLayoutPanel1
             // 
@@ -261,72 +328,6 @@
             this.ycoordLabel.Text = "label3";
             this.ycoordLabel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.xAxisList);
-            this.splitContainer2.Panel1.Controls.Add(this.label1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.yAxisTabs);
-            this.splitContainer2.Panel2.Controls.Add(this.label2);
-            this.splitContainer2.Size = new System.Drawing.Size(219, 497);
-            this.splitContainer2.SplitterDistance = 149;
-            this.splitContainer2.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.SystemColors.Window;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(219, 17);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "X Axis";
-            // 
-            // xAxisList
-            // 
-            this.xAxisList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xAxisList.FormattingEnabled = true;
-            this.xAxisList.Location = new System.Drawing.Point(0, 17);
-            this.xAxisList.Name = "xAxisList";
-            this.xAxisList.Size = new System.Drawing.Size(219, 132);
-            this.xAxisList.TabIndex = 11;
-            // 
-            // yAxisTabs
-            // 
-            this.yAxisTabs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.yAxisTabs.Location = new System.Drawing.Point(0, 0);
-            this.yAxisTabs.Name = "yAxisTabs";
-            this.yAxisTabs.SelectedIndex = 0;
-            this.yAxisTabs.Size = new System.Drawing.Size(219, 344);
-            this.yAxisTabs.TabIndex = 1;
-            this.yAxisTabs.Visible = false;
-            // 
-            // addYAxisToolStripMenuItem
-            // 
-            this.addYAxisToolStripMenuItem.Name = "addYAxisToolStripMenuItem";
-            this.addYAxisToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.addYAxisToolStripMenuItem.Text = "Add Y Axis";
-            this.addYAxisToolStripMenuItem.Click += new System.EventHandler(this.addYAxisToolStripMenuItem_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 166);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(195, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "To get started, go to Graph->Add Y Axis";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -345,14 +346,14 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            this.dataPointInfoPopup.ResumeLayout(false);
-            this.dataPointInfoPopup.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.dataPointInfoPopup.ResumeLayout(false);
+            this.dataPointInfoPopup.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
