@@ -7,16 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace LogViewer
 {
     public partial class yAxisPage : UserControl
     {
+        private Series series;
+
         private Form1 mainWindow;
 
         public yAxisPage(Form1 mainWindow)
         {
             this.mainWindow = mainWindow;
+            series = new Series();
 
             InitializeComponent();
 
@@ -25,8 +29,11 @@ namespace LogViewer
             Dock = DockStyle.Fill;
             LoadedLog.LoadedFile += file_loaded;
             update_list(variablesList);
+        }
 
-            variablesList.SelectedIndexChanged += mainWindow.update_graph;
+        public Series getSeries()
+        {
+            return series;
         }
 
         public double getScaleFactor()
@@ -68,12 +75,32 @@ namespace LogViewer
             list.Refresh();
         }
 
+        public void generatePoints()
+        {
+            if (variablesList.SelectedIndex == -1) return; //don't generate any points if nothing's selected
+
+            string name = LoadedLog.columns[variablesList.SelectedIndex];
+            double scaleFactor = getScaleFactor();
+            bool onLeft = getScale();
+            ListBox xAxisList = (ListBox)mainWindow.Controls.Find("xAxisList", true).First();
+
+            series.Points.Clear();
+            for (int i = 0; i < LoadedLog.log[name].Count; i++)
+            {
+                double y = LoadedLog.log[name][i] * scaleFactor;
+                double x = LoadedLog.log[xAxisList.SelectedItem.ToString()][i];
+                series.Points.AddXY(x, y);
+            }
+        }
+
         private void variablesList_SelectedIndexChanged(object sender, EventArgs e)
         {
             string newTitle = LoadedLog.columns[variablesList.SelectedIndex];
 
             TabPage parent = (TabPage)Parent;
             parent.Text = newTitle;
+
+            generatePoints();
         }
 
         private void removeButton_Click(object sender, EventArgs e)
@@ -82,17 +109,20 @@ namespace LogViewer
             TabControl tabControl = (TabControl)tabPage.Parent;
             tabControl.Controls.Remove(tabPage);
 
-            mainWindow.update_graph();
+            Chart chart = (Chart)mainWindow.Controls.Find("chart1", true).First();
+            chart.Series.Remove(series);
         }
 
         private void scaleFactorBox_ValueChanged(object sender, EventArgs e)
         {
-            mainWindow.update_graph();
+            generatePoints();
         }
 
         private void scaleDropdown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            mainWindow.update_graph();
+            bool onLeft = getScale();
+            series.YAxisType = onLeft ? AxisType.Primary : AxisType.Secondary;
+            generatePoints();
         }
     }
 }
