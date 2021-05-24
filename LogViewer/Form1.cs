@@ -142,8 +142,25 @@ namespace LogViewer
             }
         }
 
+        private void addYAxisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TabPage newPage = new TabPage("New Y Axis");
+            yAxisPage axisPage = new yAxisPage(this);
+            chart1.Series.Add(axisPage.getSeries());
+            newPage.Controls.Add(axisPage);
+            yAxisTabs.TabPages.Add(newPage);
+
+            if (yAxisTabs.TabCount == 1)
+            {
+                yAxisTabs.Visible = true;
+            }
+        }
+
+        private bool mouseDown = false;
         private void chart1_MouseMove(object sender, MouseEventArgs e)
         {
+            if (mouseDown) return; //zooming was really slow because of all the hit tests running
+
             HitTestResult result = chart1.HitTest(e.X, e.Y);
             if(result.ChartElementType == ChartElementType.DataPoint)
             {
@@ -176,18 +193,14 @@ namespace LogViewer
             }
         }
 
-        private void addYAxisToolStripMenuItem_Click(object sender, EventArgs e)
+        private void chart1_MouseDown(object sender, MouseEventArgs e)
         {
-            TabPage newPage = new TabPage("New Y Axis");
-            yAxisPage axisPage = new yAxisPage(this);
-            chart1.Series.Add(axisPage.getSeries());
-            newPage.Controls.Add(axisPage);
-            yAxisTabs.TabPages.Add(newPage);
+            mouseDown = true;
+        }
 
-            if(yAxisTabs.TabCount == 1)
-            {
-                yAxisTabs.Visible = true;
-            }
+        private void chart1_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseDown = false;
         }
     }
 }
