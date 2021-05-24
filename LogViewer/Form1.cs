@@ -156,6 +156,18 @@ namespace LogViewer
             }
         }
 
+        protected override void OnResizeBegin(EventArgs e)
+        {
+            chart1.Visible = false;
+            base.OnResizeBegin(e);
+        }
+
+        protected override void OnResizeEnd(EventArgs e)
+        {
+            base.OnResizeEnd(e);
+            chart1.Visible = true;
+        }
+
         private bool mouseDown = false;
         private void chart1_MouseMove(object sender, MouseEventArgs e)
         {
