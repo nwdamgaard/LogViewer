@@ -82,46 +82,6 @@ namespace LogViewer
             return SeriesChartType.Point;
         }
 
-        public void update_graph()
-        {
-            if(xAxisList.SelectedItem == null)
-            {
-                return;
-            }
-            if (yAxisTabs.Controls.Count == 0) //return if there are no y-axes
-            {
-                return;
-            } else
-            {
-                //return if no yAxisPages have anything selected
-                bool nothingSelected = true;
-                foreach(TabPage page in yAxisTabs.Controls)
-                {
-                    yAxisPage axisPage = (yAxisPage)page.Controls[0];
-                    ListBox list = (ListBox)axisPage.Controls.Find("variablesList", false).First();
-                    if(list.SelectedItem != null)
-                    {
-                        nothingSelected = false;
-                    }
-                }
-                if (nothingSelected) return;
-            }
-
-            Console.WriteLine("updating graph...");
-
-            chart1.Series.Clear(); //destroy all the existing series
-            foreach (TabPage page in yAxisTabs.Controls) // loop through each Y axis entry
-            {
-                //do some polymorphism to get my yAxisPage class which has the series in it
-                yAxisPage axisPage = (yAxisPage)page.Controls[0];
-                if(axisPage.getSeries() != null)
-                    chart1.Series.Add(axisPage.getSeries());
-            }
-
-            chart1.DataBind();
-            chart1.Update();
-        }
-
         private void AxisList_SelectedIndexChanged(object sender, EventArgs e)
         {
             foreach(TabPage page in yAxisTabs.Controls) //loop through each Y axis and regenerate their points with the new X-axis
