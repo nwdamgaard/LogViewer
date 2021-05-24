@@ -192,10 +192,11 @@ namespace LogViewer
 
                 //fill labels
                 DataPoint point = result.Series.Points.ElementAt(result.PointIndex);
+                double scaleFactor = (double)(decimal)result.Series.Tag; //scale factor is stored in the Series.Tag property
                 string xText = (string)xAxisList.SelectedItem;
                 string yText = result.Series.Name;
                 xcoordLabel.Text = xText + ": " + point.XValue.ToString();
-                ycoordLabel.Text = yText + ": " + point.YValues.First().ToString();
+                ycoordLabel.Text = yText + ": " + (point.YValues.First() / scaleFactor).ToString();
 
                 //move data point info to mouse position
                 Point location = MousePosition;

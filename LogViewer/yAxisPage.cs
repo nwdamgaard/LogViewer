@@ -26,6 +26,7 @@ namespace LogViewer
             InitializeComponent();
 
             scaleDropdown.SelectedIndex = 0;
+            series.Tag = scaleFactorBox.Value;
 
             Dock = DockStyle.Fill;
             LoadedLog.LoadedFile += file_loaded;
@@ -102,6 +103,7 @@ namespace LogViewer
 
             TabPage parent = (TabPage)Parent;
             parent.Text = newTitle;
+            series.Name = newTitle;
 
             generatePoints();
         }
@@ -118,6 +120,7 @@ namespace LogViewer
 
         private void scaleFactorBox_ValueChanged(object sender, EventArgs e)
         {
+            series.Tag = scaleFactorBox.Value;
             generatePoints();
         }
 
