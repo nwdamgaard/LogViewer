@@ -208,6 +208,7 @@ namespace LogViewer
         private void chart1_MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
+            dataPointInfoPopup.Visible = false;
         }
 
         private void chart1_MouseUp(object sender, MouseEventArgs e)
