@@ -8,8 +8,8 @@ If you have any issues or feature requests feel free to submit an issue or pull 
 ## Features:
 - quickly graph log data so you can spend more time tuning than fighting with the software
 - allows you to choose any logged variable as the X and Y axis
-- allow for a second y-axis with a different scale that way you can see correlations between values for example throttle% and load over time
-- choose between a line graph and a scatter graph
+- graph multiple variables at once with different scales
+- choose between a line graph and a point graph
 
 ## Planned features:
 - allow you to load a second log to overlay on the graph, useful for VANOS tuning
