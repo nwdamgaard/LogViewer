@@ -106,7 +106,7 @@ namespace LogViewer
 
             TabPage parent = (TabPage)Parent;
             parent.Text = newTitle;
-            series.Name = newTitle;
+            series.LegendText = newTitle;
 
             generatePoints();
         }

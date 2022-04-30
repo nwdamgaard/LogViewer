@@ -183,7 +183,7 @@ namespace LogViewer
                 DataPoint point = result.Series.Points.ElementAt(result.PointIndex);
                 double scaleFactor = (double)(decimal)result.Series.Tag; //scale factor is stored in the Series.Tag property
                 string xText = (string)xAxisList.SelectedItem;
-                string yText = result.Series.Name;
+                string yText = result.Series.LegendText;
                 xcoordLabel.Text = xText + ": " + point.XValue.ToString();
                 ycoordLabel.Text = yText + ": " + (point.YValues.First() / scaleFactor).ToString();
 
