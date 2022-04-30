@@ -99,6 +99,8 @@ namespace LogViewer
 
         private void variablesList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(variablesList.SelectedIndex == -1) return;
+
             string newTitle = LoadedLog.columns[variablesList.SelectedIndex];
 
             TabPage parent = (TabPage)Parent;
