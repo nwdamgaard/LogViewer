@@ -57,6 +57,7 @@ namespace LogViewer
         private void file_loaded()
         {
             update_list(variablesList);
+            series.Points.Clear();
         }
 
         private void update_list(ListBox list)
