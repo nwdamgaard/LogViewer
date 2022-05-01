@@ -145,7 +145,7 @@ namespace LogViewer
         private void addYAxisToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TabPage newPage = new TabPage("New Y Axis");
-            yAxisPage axisPage = new yAxisPage(this);
+            yAxisPage axisPage = yAxisTabs.TabCount == 1 ? new yAxisPage(this, 1) : new yAxisPage(this);
             chart1.Series.Add(axisPage.getSeries());
             newPage.Controls.Add(axisPage);
             yAxisTabs.TabPages.Add(newPage);

@@ -33,6 +33,11 @@ namespace LogViewer
             update_list(variablesList);
         }
 
+        public yAxisPage(Form1 mainWindow, int scaleDropdownIndex) : this(mainWindow)
+        {
+            scaleDropdown.SelectedIndex = scaleDropdownIndex;
+        }
+
         public Series getSeries()
         {
             return series;
