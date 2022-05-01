@@ -23,7 +23,7 @@ namespace LogViewer
             log = new Dictionary<string, List<float>>();
             List<string> name_lookup = new List<string>();
 
-            using (TextFieldParser parser = new TextFieldParser(path))
+            using (TextFieldParser parser = new TextFieldParser(path, Encoding.Default))
             {
                 parser.TextFieldType = FieldType.Delimited;
                 string separator = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator;
