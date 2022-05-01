@@ -56,6 +56,7 @@
             this.dataPointInfoPopup = new System.Windows.Forms.FlowLayoutPanel();
             this.xcoordLabel = new System.Windows.Forms.Label();
             this.ycoordLabel = new System.Windows.Forms.Label();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -74,7 +75,8 @@
             this.toolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolBar_file,
             this.graphToolStripMenuItem,
-            this.zoomToolStripMenuItem});
+            this.zoomToolStripMenuItem,
+            this.settingsToolStripMenuItem});
             this.toolBar.Location = new System.Drawing.Point(0, 0);
             this.toolBar.Name = "toolBar";
             this.toolBar.Size = new System.Drawing.Size(1031, 24);
@@ -92,7 +94,7 @@
             // toolBar_file_open
             // 
             this.toolBar_file_open.Name = "toolBar_file_open";
-            this.toolBar_file_open.Size = new System.Drawing.Size(112, 22);
+            this.toolBar_file_open.Size = new System.Drawing.Size(180, 22);
             this.toolBar_file_open.Text = "Open...";
             this.toolBar_file_open.Click += new System.EventHandler(this.toolBar_file_open_Click);
             // 
@@ -330,6 +332,13 @@
             this.ycoordLabel.Text = "label3";
             this.ycoordLabel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.settingsToolStripMenuItem.Text = "Settings...";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -386,6 +395,7 @@
         private System.Windows.Forms.TabControl yAxisTabs;
         private System.Windows.Forms.ToolStripMenuItem addYAxisToolStripMenuItem;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
     }
 }
 

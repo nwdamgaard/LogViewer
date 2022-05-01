@@ -22,5 +22,17 @@ namespace LogViewer.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string csv_delimeter {
+            get {
+                return ((string)(this["csv_delimeter"]));
+            }
+            set {
+                this["csv_delimeter"] = value;
+            }
+        }
     }
 }

@@ -26,7 +26,13 @@ namespace LogViewer
             using (TextFieldParser parser = new TextFieldParser(path, Encoding.Default))
             {
                 parser.TextFieldType = FieldType.Delimited;
-                string separator = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator;
+
+                string separator = Properties.Settings.Default.csv_delimeter;
+                if(separator.Equals(""))
+                {
+                    separator = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator;
+                }
+
                 parser.SetDelimiters(separator);
                 //create columns
                 string[] col_names = parser.ReadFields();

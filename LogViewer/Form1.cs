@@ -215,5 +215,11 @@ namespace LogViewer
         {
             mouseDown = false;
         }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsForm form = new SettingsForm();
+            form.ShowDialog();
+        }
     }
 }
