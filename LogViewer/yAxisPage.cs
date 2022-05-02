@@ -13,6 +13,8 @@ namespace LogViewer
 {
     public partial class yAxisPage : UserControl
     {
+        public yAxisConfig config { get; set; }
+
         private Series series;
 
         private Form1 mainWindow;
@@ -30,7 +32,10 @@ namespace LogViewer
 
             Dock = DockStyle.Fill;
             LoadedLog.LoadedFile += file_loaded;
+            LoadedLog.RequestUpdateConfig += update_config;
             update_list(variablesList);
+
+            config = new yAxisConfig();
         }
 
         public yAxisPage(Form1 mainWindow, int scaleDropdownIndex) : this(mainWindow)
@@ -57,6 +62,15 @@ namespace LogViewer
             }
 
             return false;
+        }
+
+        private void update_config()
+        {
+            config.selectedVariable = variablesList.SelectedIndex == -1 ? "" : series.LegendText;
+            config.scale = scaleDropdown.SelectedIndex;
+            config.scaleFactor = scaleFactorBox.Value;
+
+            Console.WriteLine("yAxisPage (" + config.selectedVariable + "): Updated config.");
         }
 
         private void file_loaded()
@@ -138,5 +152,12 @@ namespace LogViewer
             series.YAxisType = onLeft ? AxisType.Primary : AxisType.Secondary;
             generatePoints();
         }
+    }
+
+    public class yAxisConfig
+    {
+        public string selectedVariable { get; set; }
+        public decimal scaleFactor;
+        public int scale;
     }
 }

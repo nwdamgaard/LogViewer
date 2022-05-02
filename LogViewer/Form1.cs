@@ -21,6 +21,26 @@ namespace LogViewer
             InitializeComponent();
 
             LoadedLog.LoadedFile += file_loaded;
+            LoadedLog.RequestUpdateConfig += update_config;
+        }
+        public ListBox getXAxisList()
+        {
+            return xAxisList;
+        }
+
+        private void update_config()
+        {
+            LoadedLog.config.xAxisVariable = xAxisList.SelectedIndex == -1 ? "" : LoadedLog.columns[xAxisList.SelectedIndex];
+            LoadedLog.config.graphType = get_chart_type();
+            
+            LoadedLog.config.yAxes = new List<yAxisConfig>();
+            foreach(TabPage page in yAxisTabs.Controls)
+            {
+                yAxisPage axisPage = (yAxisPage)page.Controls[0];
+                LoadedLog.config.yAxes.Add(axisPage.config);
+            }
+
+            Console.WriteLine("Form1: Updated config.");
         }
 
         private void update_list(ListBox list)
@@ -220,6 +240,16 @@ namespace LogViewer
         {
             SettingsForm form = new SettingsForm();
             form.ShowDialog();
+        }
+
+        private void saveGraphConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = saveFileDialog1.ShowDialog();
+            if(result == DialogResult.OK)
+            {
+                string filepath = saveFileDialog1.FileName;
+                LoadedLog.saveConfig(filepath, this);
+            }
         }
     }
 }

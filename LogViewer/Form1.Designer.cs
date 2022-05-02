@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.toolBar = new System.Windows.Forms.MenuStrip();
             this.toolBar_file = new System.Windows.Forms.ToolStripMenuItem();
             this.toolBar_file_open = new System.Windows.Forms.ToolStripMenuItem();
+            this.openGraphConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveGraphConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.typeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,6 +46,7 @@
             this.lockXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lockYToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomToFitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -56,7 +59,7 @@
             this.dataPointInfoPopup = new System.Windows.Forms.FlowLayoutPanel();
             this.xcoordLabel = new System.Windows.Forms.Label();
             this.ycoordLabel = new System.Windows.Forms.Label();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -86,7 +89,9 @@
             // toolBar_file
             // 
             this.toolBar_file.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolBar_file_open});
+            this.toolBar_file_open,
+            this.openGraphConfigToolStripMenuItem,
+            this.saveGraphConfigToolStripMenuItem});
             this.toolBar_file.Name = "toolBar_file";
             this.toolBar_file.Size = new System.Drawing.Size(37, 20);
             this.toolBar_file.Text = "File";
@@ -94,9 +99,22 @@
             // toolBar_file_open
             // 
             this.toolBar_file_open.Name = "toolBar_file_open";
-            this.toolBar_file_open.Size = new System.Drawing.Size(180, 22);
+            this.toolBar_file_open.Size = new System.Drawing.Size(186, 22);
             this.toolBar_file_open.Text = "Open...";
             this.toolBar_file_open.Click += new System.EventHandler(this.toolBar_file_open_Click);
+            // 
+            // openGraphConfigToolStripMenuItem
+            // 
+            this.openGraphConfigToolStripMenuItem.Name = "openGraphConfigToolStripMenuItem";
+            this.openGraphConfigToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.openGraphConfigToolStripMenuItem.Text = "Open Graph Config...";
+            // 
+            // saveGraphConfigToolStripMenuItem
+            // 
+            this.saveGraphConfigToolStripMenuItem.Name = "saveGraphConfigToolStripMenuItem";
+            this.saveGraphConfigToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.saveGraphConfigToolStripMenuItem.Text = "Save Graph Config...";
+            this.saveGraphConfigToolStripMenuItem.Click += new System.EventHandler(this.saveGraphConfigToolStripMenuItem_Click);
             // 
             // graphToolStripMenuItem
             // 
@@ -172,9 +190,12 @@
             this.zoomToFitToolStripMenuItem.Text = "Zoom to Fit";
             this.zoomToFitToolStripMenuItem.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
             // 
-            // openFileDialog1
+            // settingsToolStripMenuItem
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.settingsToolStripMenuItem.Text = "Settings...";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // splitContainer1
             // 
@@ -267,29 +288,29 @@
             // 
             // chart1
             // 
-            chartArea1.AxisY2.MajorGrid.Enabled = false;
-            chartArea1.CursorX.IsUserSelectionEnabled = true;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea3.AxisY2.MajorGrid.Enabled = false;
+            chartArea3.CursorX.IsUserSelectionEnabled = true;
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Enabled = false;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            legend3.Enabled = false;
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(0, 0);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series1.Legend = "Legend1";
-            series1.Name = "primary";
-            series1.XValueMember = "X";
-            series1.YValueMembers = "Y";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series2.Legend = "Legend1";
-            series2.Name = "secondary";
-            series2.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            this.chart1.Series.Add(series1);
-            this.chart1.Series.Add(series2);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series5.Legend = "Legend1";
+            series5.Name = "primary";
+            series5.XValueMember = "X";
+            series5.YValueMembers = "Y";
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series6.Legend = "Legend1";
+            series6.Name = "secondary";
+            series6.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            this.chart1.Series.Add(series5);
+            this.chart1.Series.Add(series6);
             this.chart1.Size = new System.Drawing.Size(808, 497);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -332,12 +353,10 @@
             this.ycoordLabel.Text = "label3";
             this.ycoordLabel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
-            // settingsToolStripMenuItem
+            // saveFileDialog1
             // 
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
-            this.settingsToolStripMenuItem.Text = "Settings...";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            this.saveFileDialog1.DefaultExt = "json";
+            this.saveFileDialog1.Filter = "JSON file|*.json";
             // 
             // Form1
             // 
@@ -396,6 +415,9 @@
         private System.Windows.Forms.ToolStripMenuItem addYAxisToolStripMenuItem;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openGraphConfigToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveGraphConfigToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 
