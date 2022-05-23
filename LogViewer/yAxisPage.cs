@@ -64,6 +64,15 @@ namespace LogViewer
             return false;
         }
 
+        public void load_config(yAxisConfig config)
+        {
+            this.config = config;
+            scaleDropdown.SelectedIndex = config.scale;
+            scaleFactorBox.Value = config.scaleFactor;
+
+            variablesList.SelectedIndex = config.selectedVariableIndex;
+        }
+
         private void update_config()
         {
             config.selectedVariable = variablesList.SelectedIndex == -1 ? "" : series.LegendText;
@@ -157,7 +166,8 @@ namespace LogViewer
     public class yAxisConfig
     {
         public string selectedVariable { get; set; }
-        public decimal scaleFactor;
-        public int scale;
+        public int selectedVariableIndex;
+        public decimal scaleFactor { get; set; }
+        public int scale { get; set; }
     }
 }

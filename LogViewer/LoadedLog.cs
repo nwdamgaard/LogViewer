@@ -25,18 +25,27 @@ namespace LogViewer
     {
         public static event FileLoaded LoadedFile;
         public static event UpdateConfig RequestUpdateConfig;
+        public static event UpdateConfig NewConfigLoaded;
 
         public static Dictionary<string, List<float>> log;
-        public static string[] columns;
+        public static string[] columns = { };
         public static LogConfig config = new LogConfig();
 
-        public static void saveConfig(string path, Form1 form)
+        public static void saveConfig(string path)
         {
             RequestUpdateConfig?.Invoke();
 
             string serializedConfig = JsonSerializer.Serialize(config);
             Console.WriteLine(serializedConfig);
             File.WriteAllText(path, serializedConfig);
+        }
+
+        public static void loadConfig(string path)
+        {
+            string configJSON = File.ReadAllText(path);
+            config = JsonSerializer.Deserialize<LogConfig>(configJSON);
+
+            NewConfigLoaded?.Invoke();
         }
 
         public static void loadFile(string path)

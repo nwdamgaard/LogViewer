@@ -22,10 +22,50 @@ namespace LogViewer
 
             LoadedLog.LoadedFile += file_loaded;
             LoadedLog.RequestUpdateConfig += update_config;
+            LoadedLog.NewConfigLoaded += load_from_config;
         }
-        public ListBox getXAxisList()
+        
+        private void load_from_config()
         {
-            return xAxisList;
+            //clear_points();
+
+            // select the correct x axis
+            int xAxisIndex = Array.IndexOf(LoadedLog.columns, LoadedLog.config.xAxisVariable);
+            if (xAxisIndex == -1)
+            {
+                Utils.userError("The currently loaded file does not contain a variable called \"" + LoadedLog.config.xAxisVariable + "\".");
+                return;
+            }
+            xAxisList.SelectedIndex = xAxisIndex;
+
+            // setup y axes
+            foreach (yAxisConfig axisConfig in LoadedLog.config.yAxes)
+            {
+                int axisIndex = Array.IndexOf(LoadedLog.columns, axisConfig.selectedVariable);
+                if (axisIndex == -1)
+                {
+                    Utils.userError("The currently loaded file does not contain a variable called \"" + axisConfig.selectedVariable + "\". This y-axis will be skipped.");
+                    continue;
+                }
+                axisConfig.selectedVariableIndex = axisIndex;
+
+                // ***** excerpt from another function to create the new page *******
+                TabPage newPage = new TabPage("New Y Axis");
+                yAxisPage axisPage = yAxisTabs.TabCount == 1 ? new yAxisPage(this, 1) : new yAxisPage(this);
+                chart1.Series.Add(axisPage.getSeries());
+                newPage.Controls.Add(axisPage);
+                yAxisTabs.TabPages.Add(newPage);
+
+                if (yAxisTabs.TabCount == 1)
+                {
+                    yAxisTabs.Visible = true;
+                }
+                // ********************************************
+
+                axisPage.load_config(axisConfig);
+            }
+
+
         }
 
         private void update_config()
@@ -49,8 +89,7 @@ namespace LogViewer
             list.BeginUpdate();
             list.Items.Clear();
 
-            string[] columns = LoadedLog.columns;
-            foreach (string col in columns)
+            foreach (string col in LoadedLog.columns)
             {
                 list.Items.Add(col);
             }
@@ -248,7 +287,20 @@ namespace LogViewer
             if(result == DialogResult.OK)
             {
                 string filepath = saveFileDialog1.FileName;
-                LoadedLog.saveConfig(filepath, this);
+                LoadedLog.saveConfig(filepath);
+            }
+        }
+
+        private void openGraphConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "JSON files|*.json";
+            dialog.FileName = "";
+            DialogResult result = dialog.ShowDialog();
+            if(result == DialogResult.OK)
+            {
+                string file = dialog.FileName;
+                LoadedLog.loadConfig(file);
             }
         }
     }
