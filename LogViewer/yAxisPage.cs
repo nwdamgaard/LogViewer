@@ -36,6 +36,8 @@ namespace LogViewer
             update_list(variablesList);
 
             config = new yAxisConfig();
+
+            LoadedLog.LogChanged += generatePoints;
         }
 
         public yAxisPage(Form1 mainWindow, int scaleDropdownIndex) : this(mainWindow)

@@ -15,6 +15,7 @@ namespace LogViewer
     public partial class Form1 : Form
     {
         public SeriesChartType chartType = SeriesChartType.Point;
+        public FilterForm dataFilters = new FilterForm();
 
         public Form1()
         {
@@ -23,12 +24,12 @@ namespace LogViewer
             LoadedLog.LoadedFile += file_loaded;
             LoadedLog.RequestUpdateConfig += update_config;
             LoadedLog.NewConfigLoaded += load_from_config;
+
+            FilterForm.filtersChanged += LoadedLog.applyFilters;
         }
         
         private void load_from_config()
         {
-            //clear_points();
-
             // select the correct x axis
             int xAxisIndex = Array.IndexOf(LoadedLog.columns, LoadedLog.config.xAxisVariable);
             if (xAxisIndex == -1)
@@ -302,6 +303,11 @@ namespace LogViewer
                 string file = dialog.FileName;
                 LoadedLog.loadConfig(file);
             }
+        }
+
+        private void filtersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dataFilters.Show();
         }
     }
 }

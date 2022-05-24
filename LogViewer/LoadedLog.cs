@@ -26,7 +26,9 @@ namespace LogViewer
         public static event FileLoaded LoadedFile;
         public static event UpdateConfig RequestUpdateConfig;
         public static event UpdateConfig NewConfigLoaded;
+        public static event UpdateConfig LogChanged;
 
+        public static Dictionary<string, List<float>> fullLog;
         public static Dictionary<string, List<float>> log;
         public static string[] columns = { };
         public static LogConfig config = new LogConfig();
@@ -50,7 +52,7 @@ namespace LogViewer
 
         public static void loadFile(string path)
         {
-            log = new Dictionary<string, List<float>>();
+            fullLog = new Dictionary<string, List<float>>();
             List<string> name_lookup = new List<string>();
 
             using (TextFieldParser parser = new TextFieldParser(path, Encoding.Default))
@@ -68,7 +70,7 @@ namespace LogViewer
                 string[] col_names = parser.ReadFields();
                 foreach(string name in col_names)
                 {
-                    log.Add(name, new List<float>());
+                    fullLog.Add(name, new List<float>());
                     name_lookup.Add(name);
                 }
 
@@ -78,16 +80,50 @@ namespace LogViewer
                     string[] fields = parser.ReadFields();
                     for(int i = 0; i < fields.Length; i++)
                     {
-                        log[name_lookup[i]].Add(float.Parse(fields[i]));
+                        fullLog[name_lookup[i]].Add(float.Parse(fields[i]));
                     }
                 }
             }
 
             columns = name_lookup.ToArray();
 
+            applyFilters();
+
             Console.WriteLine("Opened file: " + path);
 
             LoadedFile?.Invoke();
+        }
+
+        public static void applyFilters()
+        {
+            int numPoints = fullLog[columns[0]].Count;
+
+            log = new Dictionary<string, List<float>>();
+            foreach (string column in columns)
+            {
+                log.Add(column, new List<float>());
+            }
+
+            for (int i = 0; i < numPoints; i++)
+            {
+                bool validPoint = true;
+                foreach(Filter filter in FilterForm.filters)
+                {
+                    decimal value = (decimal)fullLog[filter.variableName][i];
+                    if( !(value < filter.lessThan && value > filter.greaterThan) )
+                    {
+                        validPoint = false;
+                    }
+                }
+
+                if (!validPoint) continue;
+                foreach(string column in columns)
+                {
+                    log[column].Add(fullLog[column][i]);
+                }
+            }
+
+            LogChanged?.Invoke();
         }
     }
 }
