@@ -17,6 +17,23 @@ namespace LogViewer
             InitializeComponent();
         }
 
+        public FilterEditor(Filter filter) : this()
+        {
+            variableList1.SelectItem(filter.variableName);
+            
+            if(filter.greaterThan != decimal.MinValue)
+            {
+                greaterThanCheckBox.Checked = true;
+                greaterThanTextBox.Value = filter.greaterThan;
+            }
+
+            if(filter.lessThan != decimal.MaxValue)
+            {
+                lessThanCheckBox.Checked = true;
+                lessThanTextBox.Value = filter.lessThan;
+            }
+        }
+
         public Filter GetFilter()
         {
             Filter filter = new Filter();

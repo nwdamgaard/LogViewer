@@ -42,6 +42,29 @@ namespace LogViewer
             filtersChanged?.Invoke();
         }
 
+        private void editButton_Click(object sender, EventArgs e)
+        {
+            int index = filterList.SelectedIndex;
+            FilterEditor editor = new FilterEditor(filters[index]);
+            DialogResult dr = editor.ShowDialog();
+            if (dr == DialogResult.Cancel) return;
+
+            Filter filter = editor.GetFilter();
+            filters[index] = filter;
+            filterList.Items[index] = filter.Label();
+
+            filtersChanged?.Invoke();
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            int index = filterList.SelectedIndex;
+            filterList.Items.RemoveAt(index);
+            filters.RemoveAt(index);
+
+            filtersChanged?.Invoke();
+        }
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);

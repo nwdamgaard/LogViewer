@@ -120,10 +120,10 @@ namespace LogViewer
             bool onLeft = getScale();
 
             series.Points.Clear();
-            for (int i = 0; i < LoadedLog.log[name].Count; i++)
+            for (int i = 0; i < LoadedLog.filteredLog[name].Count; i++)
             {
-                double y = LoadedLog.log[name][i] * scaleFactor;
-                double x = LoadedLog.log[xAxisList.SelectedItem.ToString()][i];
+                double y = LoadedLog.filteredLog[name][i] * scaleFactor;
+                double x = LoadedLog.filteredLog[xAxisList.SelectedItem.ToString()][i];
                 series.Points.AddXY(x, y);
             }
         }

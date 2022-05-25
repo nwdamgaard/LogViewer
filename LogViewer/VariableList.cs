@@ -22,6 +22,17 @@ namespace LogViewer
             return (string)listBox.SelectedItem;
         }
 
+        public void SelectItem(string item)
+        {
+            if(listBox.Items.Count >= 0)
+            {
+                waitingToSelect = item;
+                return;
+            }
+
+            listBox.SelectedItem = item;
+        }
+
         private void VariableList_Load(object sender, EventArgs e)
         {
             listBox.Items.Clear();
@@ -29,6 +40,14 @@ namespace LogViewer
             {
                 listBox.Items.Add(variable);
             }
+
+            if (waitingToSelect != "")
+            {
+                listBox.SelectedItem = waitingToSelect;
+                waitingToSelect = "";
+            }
         }
+
+        private string waitingToSelect = "";
     }
 }

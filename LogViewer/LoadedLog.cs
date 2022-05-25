@@ -29,7 +29,7 @@ namespace LogViewer
         public static event UpdateConfig LogChanged;
 
         public static Dictionary<string, List<float>> fullLog;
-        public static Dictionary<string, List<float>> log;
+        public static Dictionary<string, List<float>> filteredLog;
         public static string[] columns = { };
         public static LogConfig config = new LogConfig();
 
@@ -98,10 +98,10 @@ namespace LogViewer
         {
             int numPoints = fullLog[columns[0]].Count;
 
-            log = new Dictionary<string, List<float>>();
+            filteredLog = new Dictionary<string, List<float>>();
             foreach (string column in columns)
             {
-                log.Add(column, new List<float>());
+                filteredLog.Add(column, new List<float>());
             }
 
             for (int i = 0; i < numPoints; i++)
@@ -119,7 +119,7 @@ namespace LogViewer
                 if (!validPoint) continue;
                 foreach(string column in columns)
                 {
-                    log[column].Add(fullLog[column][i]);
+                    filteredLog[column].Add(fullLog[column][i]);
                 }
             }
 
