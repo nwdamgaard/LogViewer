@@ -17,17 +17,39 @@ namespace LogViewer
         public SeriesChartType chartType = SeriesChartType.Point;
         public FilterForm dataFilters = new FilterForm();
 
+        public List<ToolStripMenuItem> tooltipSettings = new List<ToolStripMenuItem>();
+
         public GraphView()
         {
             InitializeComponent();
 
             LoadedLog.LoadedFile += file_loaded;
+            LoadedLog.LoadedFile += update_tooltip_settings;
             LoadedLog.RequestUpdateConfig += update_config;
             LoadedLog.NewConfigLoaded += load_from_config;
 
             FilterForm.filtersChanged += LoadedLog.applyFilters;
         }
-        
+
+        private void update_tooltip_settings()
+        {
+            foreach(ToolStripMenuItem item in tooltipSettings)
+            {
+                tooltipToolStripMenuItem.DropDownItems.Remove(item);
+            }
+            tooltipSettings.Clear();
+
+            foreach(string column in LoadedLog.columns)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem();
+                item.Text = column;
+                item.CheckOnClick = true;
+
+                tooltipSettings.Add(item);
+                tooltipToolStripMenuItem.DropDownItems.Add(item);
+            }
+        }
+
         private void load_from_config()
         {
             // select the correct x axis
@@ -247,6 +269,18 @@ namespace LogViewer
                 xcoordLabel.Text = xText + ": " + point.XValue.ToString();
                 ycoordLabel.Text = yText + ": " + (point.YValues.First() / scaleFactor).ToString();
 
+                // fill the custom label
+                string customLabel = "";
+                foreach(ToolStripMenuItem item in tooltipSettings)
+                {
+                    if (!item.Checked) continue;
+
+                    customLabel += item.Text + ": ";
+                    float value = LoadedLog.filteredLog[item.Text][int.Parse(point.GetCustomProperty(Utils.LogIndex))];
+                    customLabel += value.ToString() + "\n";
+                }
+                tooltipCustomLabel.Text = customLabel;
+
                 //move data point info to mouse position
                 Point location = MousePosition;
                 location.Offset(new Point(5, 0));
@@ -257,7 +291,7 @@ namespace LogViewer
                     location.Offset(new Point(-10 - dataPointInfoPopup.Width, 0));
                 }
 
-                dataPointInfoPopup.Location = PointToClient(location);
+                dataPointInfoPopup.Location = chart1.PointToClient(location);
 
             } else
             {

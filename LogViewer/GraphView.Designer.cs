@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.toolBar = new System.Windows.Forms.MenuStrip();
             this.toolBar_file = new System.Windows.Forms.ToolStripMenuItem();
             this.toolBar_file_open = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,6 +42,7 @@
             this.lineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addYAxisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filtersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lockXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lockYToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +61,8 @@
             this.xcoordLabel = new System.Windows.Forms.Label();
             this.ycoordLabel = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.filtersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tooltipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tooltipCustomLabel = new System.Windows.Forms.Label();
             this.toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -122,8 +124,9 @@
             // 
             this.graphToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.typeToolStripMenuItem,
-            this.addYAxisToolStripMenuItem,
-            this.filtersToolStripMenuItem});
+            this.tooltipToolStripMenuItem,
+            this.filtersToolStripMenuItem,
+            this.addYAxisToolStripMenuItem});
             this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
             this.graphToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.graphToolStripMenuItem.Text = "Graph";
@@ -159,6 +162,13 @@
             this.addYAxisToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addYAxisToolStripMenuItem.Text = "Add Y Axis";
             this.addYAxisToolStripMenuItem.Click += new System.EventHandler(this.addYAxisToolStripMenuItem_Click);
+            // 
+            // filtersToolStripMenuItem
+            // 
+            this.filtersToolStripMenuItem.Name = "filtersToolStripMenuItem";
+            this.filtersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.filtersToolStripMenuItem.Text = "Filters...";
+            this.filtersToolStripMenuItem.Click += new System.EventHandler(this.filtersToolStripMenuItem_Click);
             // 
             // zoomToolStripMenuItem
             // 
@@ -213,6 +223,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.dataPointInfoPopup);
             this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
             this.splitContainer1.Panel2.Controls.Add(this.chart1);
             this.splitContainer1.Size = new System.Drawing.Size(1031, 497);
@@ -291,29 +302,29 @@
             // 
             // chart1
             // 
-            chartArea2.AxisY2.MajorGrid.Enabled = false;
-            chartArea2.CursorX.IsUserSelectionEnabled = true;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
+            chartArea7.AxisY2.MajorGrid.Enabled = false;
+            chartArea7.CursorX.IsUserSelectionEnabled = true;
+            chartArea7.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea7);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Enabled = false;
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            legend7.Enabled = false;
+            legend7.Name = "Legend1";
+            this.chart1.Legends.Add(legend7);
             this.chart1.Location = new System.Drawing.Point(0, 0);
             this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series3.Legend = "Legend1";
-            series3.Name = "primary";
-            series3.XValueMember = "X";
-            series3.YValueMembers = "Y";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series4.Legend = "Legend1";
-            series4.Name = "secondary";
-            series4.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            this.chart1.Series.Add(series3);
-            this.chart1.Series.Add(series4);
+            series13.ChartArea = "ChartArea1";
+            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series13.Legend = "Legend1";
+            series13.Name = "primary";
+            series13.XValueMember = "X";
+            series13.YValueMembers = "Y";
+            series14.ChartArea = "ChartArea1";
+            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series14.Legend = "Legend1";
+            series14.Name = "secondary";
+            series14.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            this.chart1.Series.Add(series13);
+            this.chart1.Series.Add(series14);
             this.chart1.Size = new System.Drawing.Size(808, 497);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -327,11 +338,12 @@
             this.dataPointInfoPopup.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.dataPointInfoPopup.Controls.Add(this.xcoordLabel);
             this.dataPointInfoPopup.Controls.Add(this.ycoordLabel);
+            this.dataPointInfoPopup.Controls.Add(this.tooltipCustomLabel);
             this.dataPointInfoPopup.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.dataPointInfoPopup.Location = new System.Drawing.Point(155, 121);
+            this.dataPointInfoPopup.Location = new System.Drawing.Point(79, 85);
             this.dataPointInfoPopup.Margin = new System.Windows.Forms.Padding(10);
             this.dataPointInfoPopup.Name = "dataPointInfoPopup";
-            this.dataPointInfoPopup.Size = new System.Drawing.Size(62, 26);
+            this.dataPointInfoPopup.Size = new System.Drawing.Size(102, 39);
             this.dataPointInfoPopup.TabIndex = 4;
             this.dataPointInfoPopup.Visible = false;
             this.dataPointInfoPopup.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
@@ -361,23 +373,30 @@
             this.saveFileDialog1.DefaultExt = "json";
             this.saveFileDialog1.Filter = "JSON file|*.json";
             // 
-            // filtersToolStripMenuItem
+            // tooltipToolStripMenuItem
             // 
-            this.filtersToolStripMenuItem.Name = "filtersToolStripMenuItem";
-            this.filtersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.filtersToolStripMenuItem.Text = "Filters...";
-            this.filtersToolStripMenuItem.Click += new System.EventHandler(this.filtersToolStripMenuItem_Click);
+            this.tooltipToolStripMenuItem.Name = "tooltipToolStripMenuItem";
+            this.tooltipToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tooltipToolStripMenuItem.Text = "Tooltip";
             // 
-            // Form1
+            // tooltipCustomLabel
+            // 
+            this.tooltipCustomLabel.AutoSize = true;
+            this.tooltipCustomLabel.Location = new System.Drawing.Point(3, 26);
+            this.tooltipCustomLabel.Name = "tooltipCustomLabel";
+            this.tooltipCustomLabel.Size = new System.Drawing.Size(96, 13);
+            this.tooltipCustomLabel.TabIndex = 2;
+            this.tooltipCustomLabel.Text = "tooltipCustomLabel";
+            // 
+            // GraphView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1031, 521);
-            this.Controls.Add(this.dataPointInfoPopup);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolBar);
             this.MainMenuStrip = this.toolBar;
-            this.Name = "Form1";
+            this.Name = "GraphView";
             this.Text = "Log Viewer";
             this.toolBar.ResumeLayout(false);
             this.toolBar.PerformLayout();
@@ -429,6 +448,8 @@
         private System.Windows.Forms.ToolStripMenuItem saveGraphConfigToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem filtersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tooltipToolStripMenuItem;
+        private System.Windows.Forms.Label tooltipCustomLabel;
     }
 }
 

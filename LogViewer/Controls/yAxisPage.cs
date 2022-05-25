@@ -124,7 +124,9 @@ namespace LogViewer
             {
                 double y = LoadedLog.filteredLog[name][i] * scaleFactor;
                 double x = LoadedLog.filteredLog[xAxisList.SelectedItem.ToString()][i];
-                series.Points.AddXY(x, y);
+                DataPoint point = new DataPoint(x, y);
+                point.SetCustomProperty(Utils.LogIndex, i.ToString());
+                series.Points.Add(point);
             }
         }
 

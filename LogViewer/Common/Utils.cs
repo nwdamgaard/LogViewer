@@ -9,6 +9,8 @@ namespace LogViewer
 {
     internal class Utils
     {
+        public const string LogIndex = "logIndex";
+
         public static void userError(string message)
         {
             MessageBox.Show(message, "Error");
