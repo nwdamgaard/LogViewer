@@ -17,9 +17,9 @@ namespace LogViewer
 
         private Series series;
 
-        private Form1 mainWindow;
+        private GraphView mainWindow;
 
-        public yAxisPage(Form1 mainWindow)
+        public yAxisPage(GraphView mainWindow)
         {
             this.mainWindow = mainWindow;
             series = new Series();
@@ -40,7 +40,7 @@ namespace LogViewer
             LoadedLog.LogChanged += generatePoints;
         }
 
-        public yAxisPage(Form1 mainWindow, int scaleDropdownIndex) : this(mainWindow)
+        public yAxisPage(GraphView mainWindow, int scaleDropdownIndex) : this(mainWindow)
         {
             scaleDropdown.SelectedIndex = scaleDropdownIndex;
         }

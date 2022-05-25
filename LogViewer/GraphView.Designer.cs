@@ -1,6 +1,6 @@
 ﻿namespace LogViewer
 {
-    partial class Form1
+    partial class GraphView
     {
         /// <summary>
         /// Required designer variable.

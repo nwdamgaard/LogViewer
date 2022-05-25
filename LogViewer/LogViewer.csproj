@@ -84,23 +84,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FilterEditor.cs">
+    <Compile Include="Filters\FilterEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FilterEditor.Designer.cs">
+    <Compile Include="Filters\FilterEditor.Designer.cs">
       <DependentUpon>FilterEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="FilterForm.cs">
+    <Compile Include="Filters\FilterForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FilterForm.Designer.cs">
+    <Compile Include="Filters\FilterForm.Designer.cs">
       <DependentUpon>FilterForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="GraphView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="GraphView.Designer.cs">
+      <DependentUpon>GraphView.cs</DependentUpon>
     </Compile>
     <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>
@@ -108,31 +108,31 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoadedLog.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Common\LoadedLog.cs" />
+    <Compile Include=".NET\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.cs" />
-    <Compile Include="Utils.cs" />
-    <Compile Include="VariableList.cs">
+    <Compile Include=".NET\Settings.cs" />
+    <Compile Include="Common\Utils.cs" />
+    <Compile Include="Controls\VariableList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="VariableList.Designer.cs">
+    <Compile Include="Controls\VariableList.Designer.cs">
       <DependentUpon>VariableList.cs</DependentUpon>
     </Compile>
-    <Compile Include="yAxisPage.cs">
+    <Compile Include="Controls\yAxisPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="yAxisPage.Designer.cs">
+    <Compile Include="Controls\yAxisPage.Designer.cs">
       <DependentUpon>yAxisPage.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="FilterEditor.resx">
+    <EmbeddedResource Include="Filters\FilterEditor.resx">
       <DependentUpon>FilterEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FilterForm.resx">
+    <EmbeddedResource Include="Filters\FilterForm.resx">
       <DependentUpon>FilterForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="GraphView.resx">
+      <DependentUpon>GraphView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
@@ -147,13 +147,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="VariableList.resx">
+    <EmbeddedResource Include="Controls\VariableList.resx">
       <DependentUpon>VariableList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="yAxisPage.resx">
+    <EmbeddedResource Include="Controls\yAxisPage.resx">
       <DependentUpon>yAxisPage.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include=".NET\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -165,7 +165,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include=".NET\App.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

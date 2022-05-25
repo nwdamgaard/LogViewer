@@ -12,12 +12,12 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace LogViewer
 {
-    public partial class Form1 : Form
+    public partial class GraphView : Form
     {
         public SeriesChartType chartType = SeriesChartType.Point;
         public FilterForm dataFilters = new FilterForm();
 
-        public Form1()
+        public GraphView()
         {
             InitializeComponent();
 
